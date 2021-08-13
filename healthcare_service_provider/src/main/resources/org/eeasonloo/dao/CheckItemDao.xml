@@ -8,4 +8,13 @@
                                 values(#{code},#{name},#{sex},#{age},#{price},#{type},#{remark},#{attention})
     </insert>
 
+
+    <select id="selectByCondition" parameterType="String"
+            resultType="org.eeasonloo.pojo.CheckItem">
+        select * from t_checkitem
+        <if test="value != null and value.length > 0">
+            where code = #{value} or name = #{value}
+        </if>
+    </select>
+
 </mapper>
