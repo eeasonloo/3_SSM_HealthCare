@@ -1,7 +1,11 @@
 package org.eeasonloo.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import org.apache.poi.hssf.record.DVALRecord;
 import org.eeasonloo.dao.CheckItemDao;
+import org.eeasonloo.entity.PageResult;
 import org.eeasonloo.pojo.CheckItem;
 import org.eeasonloo.service.CheckItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +20,14 @@ public class CheckItemServiceImpl implements CheckItemService {
     @Override
     public void add(CheckItem checkItem) {
         checkItemDao.add(checkItem);
+    }
+
+    @Override
+    public PageResult findPage(Integer currentPage, Integer pageSize, String queryString) {
+        //PageHelper input 3 elements get 2 results(dataList, totalPage)
+        PageHelper.startPage(currentPage,pageSize);
+        Page<CheckItem> page = checkItemDao.selectByCondition(queryString);
+
+        return new PageResult(page.getTotal(),page.getResult());
     }
 }
