@@ -30,4 +30,19 @@ public class CheckItemServiceImpl implements CheckItemService {
 
         return new PageResult(page.getTotal(),page.getResult());
     }
+
+    @Override
+    public void delete(Integer id) throws RuntimeException{
+        //1. Check from t_checkitem_checkgroup table, whether current id is referenced.
+        //if referenced, count > 0, cant delete, throw Runtime Exception. Vice versa.
+        int count = checkItemDao.findCountByCheckItemId(id);
+
+        if(count > 0) throw new RuntimeException("The Checkitem is currently referenced to CheckGroup, it cant be delete!");
+
+
+        //2. if not referenced, Delete operations invoke.
+        checkItemDao.deleteById(id);
+    }
+
+
 }
