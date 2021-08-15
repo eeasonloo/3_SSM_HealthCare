@@ -10,4 +10,6 @@ public interface CheckItemService {
     public PageResult findPage(Integer currentPage, Integer pageSize, String queryString);
 
     public void delete(Integer id);
+
+    public CheckItem findById(Integer id);
 }
