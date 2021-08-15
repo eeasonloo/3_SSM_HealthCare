@@ -13,4 +13,6 @@ public interface CheckItemDao {
     public Integer findCountByCheckItemId(Integer id);
 
     public void deleteById(Integer id);
+
+    public CheckItem findById(Integer id);
 }

@@ -25,4 +25,8 @@
         delete from t_checkitem where id = #{id}
     </delete>
 
+    <select id="findById" parameterType="Integer" resultType="org.eeasonloo.pojo.CheckItem">
+        select * from t_checkitem where id = #{id}
+    </select>
+
 </mapper>
