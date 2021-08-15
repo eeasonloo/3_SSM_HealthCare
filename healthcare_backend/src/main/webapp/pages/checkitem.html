@@ -305,13 +305,14 @@
                 // 弹出添加窗口
                 handleCreate() {
                     this.dialogFormVisible = true;
-                    this.resetForm;
+                    this.resetForm();
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
                     axios.get("/checkitem/findById.do?id="+row.id).then((response)=>{
                         if(response.data.flag){
                             this.dialogFormVisible4Edit = true;
+                            this.resetForm();
                             this.formData = response.data.data;
                         }else{
                             this.$message.error(response.data.message);
