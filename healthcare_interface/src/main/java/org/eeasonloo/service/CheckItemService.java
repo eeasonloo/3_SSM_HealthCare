@@ -3,6 +3,8 @@ package org.eeasonloo.service;
 import org.eeasonloo.entity.PageResult;
 import org.eeasonloo.pojo.CheckItem;
 
+import java.util.List;
+
 public interface CheckItemService {
 
     public void add(CheckItem checkItem);
@@ -14,4 +16,6 @@ public interface CheckItemService {
     public CheckItem findById(Integer id);
 
     public void edit(CheckItem checkItem);
+
+    public List<CheckItem> findAll();
 }
