@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/checkitem")
 public class CheckItemController {
@@ -38,6 +40,17 @@ public class CheckItemController {
 
         return pageResult;
     }
+
+    @RequestMapping("/findAll")
+    public Result findAll(){
+        List<CheckItem> checkItemList;
+        checkItemList = checkItemService.findAll();
+        if(checkItemList != null && checkItemList.size()> 0){
+            return new Result(true,MessageConstant.QUERY_CHECKITEM_SUCCESS,checkItemList);
+        }
+        return new Result(false,MessageConstant.QUERY_CHECKITEM_FAIL);
+    }
+
 
     @RequestMapping("/delete")
     public Result delete(Integer id){
@@ -75,6 +88,8 @@ public class CheckItemController {
         }
         return new Result(true, MessageConstant.EDIT_CHECKITEM_SUCCESS);
     }
+
+
 
 
 }
