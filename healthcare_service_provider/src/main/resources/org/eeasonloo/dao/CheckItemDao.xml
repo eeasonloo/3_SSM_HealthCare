@@ -60,4 +60,8 @@
         where id = #{id}
     </update>
 
+    <select id="findAll" resultType="org.eeasonloo.pojo.CheckItem">
+        select * from t_checkitem
+    </select>
+
 </mapper>

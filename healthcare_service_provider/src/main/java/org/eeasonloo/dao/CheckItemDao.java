@@ -4,6 +4,8 @@ import com.github.pagehelper.Page;
 import org.eeasonloo.entity.PageResult;
 import org.eeasonloo.pojo.CheckItem;
 
+import java.util.List;
+
 public interface CheckItemDao {
 
     public void add(CheckItem checkItem);
@@ -17,4 +19,6 @@ public interface CheckItemDao {
     public CheckItem findById(Integer id);
 
     public void edit(CheckItem checkItem);
+
+    public List<CheckItem> findAll();
 }
