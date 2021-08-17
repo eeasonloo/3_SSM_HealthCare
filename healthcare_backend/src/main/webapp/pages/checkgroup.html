@@ -285,7 +285,8 @@
                 },
                 //添加
                 handleAdd () {
-                    axios.post("/checkgroup/add.do?checkitemIds" + this.checkitemIds,this.formData).then((response)=>{
+                    this.dialogFormVisible = false;
+                    axios.post("/checkgroup/add.do?checkitemIds=" + this.checkitemIds,this.formData).then((response)=>{
                         if(response.data.flag){
                             this.$message({
                                 type:'success',
