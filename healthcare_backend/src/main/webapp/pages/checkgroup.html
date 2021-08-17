@@ -285,6 +285,18 @@
                 },
                 //添加
                 handleAdd () {
+                    axios.post("/checkgroup/add.do?checkitemIds" + this.checkitemIds,this.formData).then((response)=>{
+                        if(response.data.flag){
+                            this.$message({
+                                type:'success',
+                                message: response.data.message
+                            });
+                        }else{
+                            this.$message.error(response.data.message);
+                        }
+                    }).finally(()=>{
+                        this.findPage();
+                    });
                 },
                 //分页查询
                 findPage() {
@@ -309,8 +321,6 @@
                             this.$message.error(response.data.message);
                         }
                     });
-
-
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
