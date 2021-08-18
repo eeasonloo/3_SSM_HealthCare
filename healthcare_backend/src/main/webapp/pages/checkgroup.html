@@ -266,7 +266,7 @@
                 pagination: {//分页相关属性
                     currentPage: 1,
                     pageSize:10,
-                    total:100,
+                    total:0,
                     queryString:null,
                 },
                 dataList: [],//列表数据
@@ -301,6 +301,15 @@
                 },
                 //分页查询
                 findPage() {
+                    var params = {
+                        currentPage: this.pagination.currentPage,
+                        pageSize: this.pagination.pageSize,
+                        queryString: this.pagination.queryString
+                    }
+                    axios.post("/checkgroup/findPage.do",params).then((response)=>{
+                            this.dataList=response.data.rows;
+                            this.pagination.total = response.data.total;
+                    });
                 },
                 // 重置表单
                 resetForm() {
@@ -328,6 +337,8 @@
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
+                    this.pagination.currentPage = currentPage;
+                    this.findPage();
                 },
                 // 删除
                 handleDelete(row) {
