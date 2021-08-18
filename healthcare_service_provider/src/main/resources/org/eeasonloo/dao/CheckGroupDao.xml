@@ -16,4 +16,11 @@
         values(#{checkgroup_id},#{checkitem_id})
     </insert>
 
+    <select id="findByCondition" parameterType="String" resultType="org.eeasonloo.pojo.CheckGroup">
+        select * from t_checkgroup
+        <if test="value != null and value.length > 0">
+            where code = #{value} or name = #{value} or helpCode = #{value}
+        </if>
+    </select>
+
 </mapper>
