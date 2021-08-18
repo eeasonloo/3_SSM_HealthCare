@@ -2,6 +2,8 @@ package org.eeasonloo.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.eeasonloo.constant.MessageConstant;
+import org.eeasonloo.entity.PageResult;
+import org.eeasonloo.entity.QueryPageBean;
 import org.eeasonloo.entity.Result;
 import org.eeasonloo.pojo.CheckGroup;
 import org.eeasonloo.service.CheckGroupService;
@@ -24,6 +26,15 @@ public class CheckGroupController {
             return new Result(false, MessageConstant.ADD_CHECKGROUP_FAIL);
         }
         return new Result(true, MessageConstant.ADD_CHECKGROUP_SUCCESS);
+    }
+
+    @RequestMapping("/findPage")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+        return checkGroupService.findPage(
+                queryPageBean.getCurrentPage(),
+                queryPageBean.getPageSize(),
+                queryPageBean.getQueryString()
+        );
     }
 
 
