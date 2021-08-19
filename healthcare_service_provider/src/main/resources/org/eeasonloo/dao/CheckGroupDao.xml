@@ -23,4 +23,8 @@
         </if>
     </select>
 
+    <select id="findById" parameterType="Integer" resultType="org.eeasonloo.pojo.CheckGroup">
+        select * from t_checkgroup where id = #{checkgroupId}
+    </select>
+
 </mapper>

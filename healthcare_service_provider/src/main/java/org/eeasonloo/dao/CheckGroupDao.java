@@ -12,4 +12,6 @@ public interface CheckGroupDao {
     public void setCheckGroupAndCheckItem(Map<String,Integer> map);
 
     public Page<CheckGroup> findByCondition(String queryString);
+
+    public CheckGroup findById(Integer checkgroupId);
 }
