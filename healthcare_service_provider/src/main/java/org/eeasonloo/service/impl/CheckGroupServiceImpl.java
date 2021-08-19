@@ -48,4 +48,9 @@ public class CheckGroupServiceImpl implements CheckGroupService {
 
         return new PageResult(page.getTotal(),page.getResult());
     }
+
+    @Override
+    public CheckGroup findById(Integer checkgroupId) {
+        return checkGroupDao.findById(checkgroupId);
+    }
 }

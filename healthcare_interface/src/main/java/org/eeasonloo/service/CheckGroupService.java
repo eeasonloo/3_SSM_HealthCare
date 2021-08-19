@@ -9,4 +9,6 @@ public interface CheckGroupService {
     public void add(Integer[] checkItemIds, @RequestBody CheckGroup checkGroup);
 
     public PageResult findPage(Integer currentPage, Integer pageSize, String queryString);
+
+    public CheckGroup findById(Integer checkgroupId);
 }
