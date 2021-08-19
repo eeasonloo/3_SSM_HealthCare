@@ -37,5 +37,15 @@ public class CheckGroupController {
         );
     }
 
+    @RequestMapping("/findById")
+    public Result findById(Integer checkgroupId){
+        try {
+            CheckGroup checkGroup = checkGroupService.findById(checkgroupId);
+            return new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS,checkGroup);
+        } catch (Exception e) {
+            return new Result(false,MessageConstant.QUERY_CHECKGROUP_FAIL);
+        }
+    }
+
 
 }
