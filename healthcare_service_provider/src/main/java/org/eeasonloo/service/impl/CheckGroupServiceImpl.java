@@ -53,4 +53,9 @@ public class CheckGroupServiceImpl implements CheckGroupService {
     public CheckGroup findById(Integer checkgroupId) {
         return checkGroupDao.findById(checkgroupId);
     }
+
+    @Override
+    public List<Integer> findCheckItemIdsbyCheckGroupId(Integer checkgroupId) {
+        return checkGroupDao.findCheckItemIdsbyCheckGroupId(checkgroupId);
+    }
 }
