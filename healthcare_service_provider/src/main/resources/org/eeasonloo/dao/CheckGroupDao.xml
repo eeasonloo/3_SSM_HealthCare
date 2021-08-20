@@ -27,4 +27,8 @@
         select * from t_checkgroup where id = #{checkgroupId}
     </select>
 
+    <select id="findCheckItemIdsbyCheckGroupId" parameterType="Integer" resultType="Integer">
+        select checkitem_id from t_checkgroup_checkitem where checkgroup_id = #{checkgroupId}
+    </select>
+
 </mapper>

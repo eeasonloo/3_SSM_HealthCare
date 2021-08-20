@@ -3,6 +3,7 @@ package org.eeasonloo.dao;
 import com.github.pagehelper.Page;
 import org.eeasonloo.pojo.CheckGroup;
 
+import java.util.List;
 import java.util.Map;
 
 public interface CheckGroupDao {
@@ -14,4 +15,6 @@ public interface CheckGroupDao {
     public Page<CheckGroup> findByCondition(String queryString);
 
     public CheckGroup findById(Integer checkgroupId);
+
+    public List<Integer> findCheckItemIdsbyCheckGroupId(Integer checkgroupId);
 }
