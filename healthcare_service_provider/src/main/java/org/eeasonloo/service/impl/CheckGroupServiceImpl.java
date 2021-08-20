@@ -58,4 +58,18 @@ public class CheckGroupServiceImpl implements CheckGroupService {
     public List<Integer> findCheckItemIdsbyCheckGroupId(Integer checkgroupId) {
         return checkGroupDao.findCheckItemIdsbyCheckGroupId(checkgroupId);
     }
+
+    @Override
+    public void edit(Integer[] checkitemIds, CheckGroup checkGroup) {
+        //1. update t_checkgroup
+        checkGroupDao.edit(checkGroup);
+
+        //2. delete association in t_checkgroup_checkitem when id = current checkGroup Id
+        checkGroupDao.deleteAssociations(checkGroup.getId());
+
+        //3. add association in t_checkgroup_checkitem
+        setCheckGroupAndCheckItem(checkGroup.getId(),checkitemIds);
+
+
+    }
 }
