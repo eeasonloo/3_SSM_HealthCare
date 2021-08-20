@@ -285,6 +285,19 @@
             //编辑
             handleEdit() {
                 this.dialogFormVisible4Edit = false;
+                axios.post("/checkgroup/edit.do?checkitemIds="+this.checkitemIds,this.formData).then((response)=>{
+                    if(response.data.flag){
+                        this.$message({
+                            type:'success',
+                            message: response.data.message
+                        });
+                    }else{
+                        this.$message.error(response.data.message);
+                    }
+                }).finally(()=>{
+                    this.findPage();
+                });
+
             },
             //添加
             handleAdd() {
