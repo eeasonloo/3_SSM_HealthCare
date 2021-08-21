@@ -122,6 +122,10 @@
             <artifactId>qiniu-java-sdk</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.dropbox.core</groupId>
+            <artifactId>dropbox-core-sdk</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
         </dependency>
