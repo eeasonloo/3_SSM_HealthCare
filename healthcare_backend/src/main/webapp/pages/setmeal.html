@@ -267,15 +267,30 @@
                 },
                 //添加
                 handleAdd () {
+
                 },
                 //分页查询
                 findPage() {
                 },
                 // 重置表单
                 resetForm() {
+                    this.activeName = 'first'
+                    this.checkgroupIds = [];
+                    this.formData ={};
+                    this.imageUrl = null;
                 },
                 // 弹出添加窗口
                 handleCreate() {
+                    this.dialogFormVisible = true;
+                    this.resetForm();
+
+                    axios("/checkgroup/findAll.do").then((response)=>{
+                        if(response.data.flag){
+                            this.tableData = response.data.data;
+                        }else{
+                            this.$messag.error(response.data.message);
+                        }
+                    });
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
