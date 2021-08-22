@@ -1,17 +1,20 @@
 import com.dropbox.core.DbxException;
         import com.dropbox.core.DbxRequestConfig;
-        import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v1.DbxEntry;
+import com.dropbox.core.v1.DbxWriteMode;
+import com.dropbox.core.v2.DbxClientV2;
         import com.dropbox.core.v2.files.FileMetadata;
         import com.dropbox.core.v2.files.ListFolderResult;
         import com.dropbox.core.v2.files.Metadata;
         import com.dropbox.core.v2.users.FullAccount;
 
-        import java.io.FileInputStream;
+import java.io.File;
+import java.io.FileInputStream;
         import java.io.InputStream;
         import java.io.IOException;
 
 public class DropboxUploadFilesTest {
-    private static final String ACCESS_TOKEN = "sl.A2_h-mYJ3RWD_Lm-ysBKYbkDvBI6VBxg3wG9go2UnaaQsQ5qHU_7jEJE5aS9Ypu5VgSjV7NATJ_iXMFq7RKqHlJ7YF0wR1pBCPQvk3894jwUKMcz9C-jtHny6EUzjZYEQZfeNr0";
+    private static final String ACCESS_TOKEN = "XkMBIxb878YAAAAAAAAAAe7-Zvw5ZywMuOp8qi24k4_vlN6asIf8TN1Xpm-QAKaY";
 
     public static void main(String args[]) throws DbxException, IOException {
         // Create Dropbox client
@@ -23,7 +26,7 @@ public class DropboxUploadFilesTest {
         System.out.println(account.getName().getDisplayName());
 
         // Get files and folder metadata from Dropbox root directory
-        /*ListFolderResult result = client.files().listFolder("");
+        ListFolderResult result = client.files().listFolder("");
         while (true) {
             for (Metadata metadata : result.getEntries()) {
                 System.out.println(metadata.getPathLower());
@@ -34,12 +37,14 @@ public class DropboxUploadFilesTest {
             }
 
             result = client.files().listFolderContinue(result.getCursor());
-        }*/
+        }
 
         // Upload "test.txt" to Dropbox
-        try (InputStream in = new FileInputStream("C:\\my_java\\repository\\healthcare_parent\\healthcare_service_provider\\src\\test\\java\\test.txt")) {
+        try (InputStream in = new FileInputStream(new File("test.txt"))) {
             FileMetadata metadata = client.files().uploadBuilder("/test.txt")
                     .uploadAndFinish(in);
         }
+
+
     }
 }
