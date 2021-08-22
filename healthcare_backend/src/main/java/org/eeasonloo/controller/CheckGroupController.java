@@ -59,7 +59,7 @@ public class CheckGroupController {
         }
     }
 
-    @RequestMapping("edit")
+    @RequestMapping("/edit")
     public Result edit(Integer[] checkitemIds, @RequestBody CheckGroup checkGroup){
         try {
             checkGroupService.edit(checkitemIds, checkGroup);
@@ -67,6 +67,17 @@ public class CheckGroupController {
         } catch (Exception e) {
             return new Result(false,MessageConstant.EDIT_CHECKGROUP_FAIL);
         }
+    }
+
+    @RequestMapping("/findAll")
+    public Result findAll(){
+        try {
+            List<CheckGroup> checkGroupList = checkGroupService.findAll();
+            return new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS, checkGroupList);
+        } catch (Exception e) {
+            return new Result(false, MessageConstant.QUERY_CHECKGROUP_FAIL);
+        }
+
     }
 
 }
