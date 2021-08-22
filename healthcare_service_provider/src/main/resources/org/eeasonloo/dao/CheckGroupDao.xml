@@ -60,4 +60,8 @@
         delete from t_checkgroup_checkitem where checkgroup_id = #{checkgroup_id}
     </delete>
 
+    <select id="findAll" resultType="org.eeasonloo.pojo.CheckGroup">
+        select * from t_checkgroup
+    </select>
+
 </mapper>
