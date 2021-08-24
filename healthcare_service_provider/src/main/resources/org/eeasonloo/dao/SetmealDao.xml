@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.eeasonloo.dao.SetmealDao">
+
+    <insert id="add" parameterType="org.eeasonloo.pojo.Setmeal">
+        <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_setmeal(id, name, code, helpCode, sex, age, price, remark, attention, img )
+                        values
+                        (#{id},#{name},#{code},#{helpCode},#{sex},#{age},#{price},#{remark},#{attention},#{img})
+    </insert>
+
+    <insert id="addAssociationsSetmealAndCheckgroup" parameterType="HashMap">
+        insert into t_setmeal_checkgroup(setmeal_id, checkgroup_id)
+                values
+                (#{setmeal_id},#{checkgroup_id})
+    </insert>
+
+</mapper>
