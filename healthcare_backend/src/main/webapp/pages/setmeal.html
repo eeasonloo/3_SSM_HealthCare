@@ -277,7 +277,18 @@
                 },
                 //添加
                 handleAdd () {
-
+                    this.dialogFormVisible = false;
+                    axios.post("/setmeal/add.do?checkgroupIds=" + this.checkgroupIds, this.formData).then((response)=>{
+                        if(response.data.flag){
+                            this.$message({
+                                type:'success',
+                                message: response.data.message
+                            });
+                        }else{
+                            this.$message.error(response.data.message);
+                        }
+                    });
+                    this.findPage();
                 },
                 //分页查询
                 findPage() {
