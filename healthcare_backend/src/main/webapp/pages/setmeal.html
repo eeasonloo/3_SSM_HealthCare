@@ -292,6 +292,19 @@
                 },
                 //分页查询
                 findPage() {
+                    var pagination_params = {
+                        currentPage: this.pagination.currentPage,
+                        pageSize:this.pagination.pageSize,
+                        queryString:this.pagination.queryString
+                    }
+                    axios.post("/setmeal/findPage.do",pagination_params).then((response)=>{
+                        if(response.data.flag) {
+                            this.pagination.total = response.data.total;
+                            this.dataList = response.data.rows;
+                        }else{
+                            this.$message.error(response.data.message);
+                        }
+                    });
                 },
                 // 重置表单
                 resetForm() {
