@@ -1,13 +1,17 @@
 package org.eeasonloo.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.eeasonloo.dao.SetmealDao;
+import org.eeasonloo.entity.PageResult;
 import org.eeasonloo.pojo.Setmeal;
 import org.eeasonloo.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service(interfaceClass = SetmealService.class)
@@ -25,6 +29,13 @@ public class SetmealServiceImpl implements SetmealService {
         if (checkgroupIds.length > 0 && checkgroupIds != null) {
             addAssociations(setmeal.getId(), checkgroupIds);
         }
+    }
+
+    @Override
+    public PageResult findPage(int pageSize, int currentPage, String queryString) {
+        PageHelper.startPage(currentPage,pageSize);
+        Page<Setmeal> page = setmealDao.findByCondition(queryString);
+        return new PageResult(page.getTotal(),page.getResult());
     }
 
     private void addAssociations(Integer setmealId, Integer[] checkgroupIds) {
