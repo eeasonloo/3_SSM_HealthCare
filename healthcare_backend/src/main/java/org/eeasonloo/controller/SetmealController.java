@@ -2,6 +2,8 @@ package org.eeasonloo.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.eeasonloo.constant.MessageConstant;
+import org.eeasonloo.entity.PageResult;
+import org.eeasonloo.entity.QueryPageBean;
 import org.eeasonloo.entity.Result;
 import org.eeasonloo.pojo.Setmeal;
 import org.eeasonloo.service.CheckGroupService;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
 
 
 import java.io.File;
@@ -52,5 +55,16 @@ public class SetmealController {
             return new Result(false, MessageConstant.ADD_SETMEAL_FAIL);
         }
         return new Result(true, MessageConstant.ADD_SETMEAL_SUCCESS);
+    }
+
+    @RequestMapping("/findPage")
+    public Result findPage(@RequestBody QueryPageBean queryPageBean){
+        try {
+            PageResult pageResult = setmealService.findPage(queryPageBean.getPageSize(),
+                    queryPageBean.getCurrentPage(), queryPageBean.getQueryString());
+            return new Result(true, MessageConstant.QUERY_SETMEAL_SUCCESS,pageResult);
+        } catch (Exception e) {
+            return new Result(false, MessageConstant.QUERY_SETMEAL_FAIL);
+        }
     }
 }
