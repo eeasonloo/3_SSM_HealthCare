@@ -296,11 +296,11 @@
                         currentPage: this.pagination.currentPage,
                         pageSize:this.pagination.pageSize,
                         queryString:this.pagination.queryString
-                    }
+                    };
                     axios.post("/setmeal/findPage.do",pagination_params).then((response)=>{
                         if(response.data.flag) {
-                            this.pagination.total = response.data.total;
-                            this.dataList = response.data.rows;
+                            this.pagination.total = response.data.data.total;
+                            this.dataList = response.data.data.rows;
                         }else{
                             this.$message.error(response.data.message);
                         }
@@ -308,7 +308,7 @@
                 },
                 // 重置表单
                 resetForm() {
-                    this.activeName = 'first'
+                    this.activeName = 'first';
                     this.checkgroupIds = [];
                     this.formData ={};
                     this.imageUrl = null;
