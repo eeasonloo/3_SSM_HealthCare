@@ -5,10 +5,12 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.eeasonloo.dao.SetmealDao;
 import org.eeasonloo.entity.PageResult;
+import org.eeasonloo.entity.RedisConstant;
 import org.eeasonloo.pojo.Setmeal;
 import org.eeasonloo.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.JedisPool;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,9 @@ public class SetmealServiceImpl implements SetmealService {
     @Autowired
     private SetmealDao setmealDao;
 
+    @Autowired
+    private JedisPool jedisPool;
+
     @Override
     public void add(Integer[] checkgroupIds, Setmeal setmeal) {
         // 1. add setmeal and get LAST_INSERTED_ID
@@ -29,6 +34,9 @@ public class SetmealServiceImpl implements SetmealService {
         if (checkgroupIds.length > 0 && checkgroupIds != null) {
             addAssociations(setmeal.getId(), checkgroupIds);
         }
+
+        //3. Add imgFilename to Redis(connected to Database[not garbage image])
+        jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_DB_RESOURCES,setmeal.getImg());
     }
 
     @Override
