@@ -4,16 +4,18 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import org.eeasonloo.constant.MessageConstant;
 import org.eeasonloo.entity.PageResult;
 import org.eeasonloo.entity.QueryPageBean;
+import org.eeasonloo.entity.RedisConstant;
 import org.eeasonloo.entity.Result;
 import org.eeasonloo.pojo.Setmeal;
 import org.eeasonloo.service.CheckGroupService;
 import org.eeasonloo.service.SetmealService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+import redis.clients.jedis.JedisPool;
 
 
 import java.io.File;
@@ -27,6 +29,9 @@ public class SetmealController {
     @Reference
     private SetmealService setmealService;
 
+    @Autowired
+    private JedisPool jedisPool;
+
     @RequestMapping("/upload")
     public Result upload(@RequestParam("imgFile") MultipartFile imgFile) {
         try {
@@ -39,6 +44,9 @@ public class SetmealController {
 
             File uploadSaveFile = new File(fileSavePath, newFilename);
             imgFile.transferTo(uploadSaveFile);
+
+            // Add to Redis, so we can recognise the garbage image(doesnt link to database)
+            jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_RESOURCES,newFilename);
 
             return new Result(true, MessageConstant.PIC_UPLOAD_SUCCESS, newFilename);
 
