@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/ordersetting")
@@ -37,9 +38,19 @@ public class OrderSettingController {
             }
 
         } catch (IOException e) {
-            return new Result(false, MessageConstant.ORDERSETTING_FAIL);
+            return new Result(false, MessageConstant.IMPORT_ORDERSETTING_FAIL);
         }
 
-        return new Result(true, MessageConstant.ORDERSETTING_SUCCESS);
+        return new Result(true, MessageConstant.IMPORT_ORDERSETTING_SUCCESS);
+    }
+
+    @RequestMapping("/getOrderSettingByMonth")
+    public Result getOrderSettingByMonth(String date){
+        try {
+            List<Map> list = orderSettingService.getOrderSettingByMonth(date);
+            return new Result(true, MessageConstant.ORDERSETTING_SUCCESS, list);
+        } catch (Exception e) {
+            return new Result(false, MessageConstant.ORDERSETTING_FAIL);
+        }
     }
 }
