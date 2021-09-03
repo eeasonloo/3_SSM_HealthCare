@@ -7,7 +7,10 @@ import org.eeasonloo.service.OrderSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service(interfaceClass = OrderSettingService.class)
 @Transactional
@@ -33,6 +36,30 @@ public class OrderSettingServiceImpl implements OrderSettingService {
 
         }
 
+    }
+
+    @Override
+    public List<Map> getOrderSettingByMonth(String date) {
+
+        String dateBegin = date + "-1";
+        String dateEnd = date + "-31";
+
+        Map map = new HashMap();
+        map.put("dateBegin", dateBegin);
+        map.put("dateEnd", dateEnd);
+        List<OrderSetting> orderSettingList = orderSettingDao.getOrderSettingByMonth(map);
+
+        List<Map> resultAll = new ArrayList<>();
+
+        for (OrderSetting orderSetting : orderSettingList) {
+            Map resultPart = new HashMap<>();
+            resultPart.put("date", orderSetting.getOrderDate().getDate());
+            resultPart.put("number", orderSetting.getNumber());
+            resultPart.put("reservations", orderSetting.getReservations());
+            resultAll.add(resultPart);
+        }
+
+        return resultAll;
     }
 
 
