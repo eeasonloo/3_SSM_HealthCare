@@ -16,4 +16,8 @@
                                     values(#{orderDate}, #{number}, #{reservations})
     </insert>
 
+    <select id="getOrderSettingByMonth" parameterType="HashMap" resultType="org.eeasonloo.pojo.OrderSetting">
+        select * from t_ordersetting where orderDate between #{dateBegin} and #{dateEnd}
+    </select>
+
 </mapper>
