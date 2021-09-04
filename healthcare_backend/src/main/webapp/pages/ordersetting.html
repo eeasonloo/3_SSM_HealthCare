@@ -140,6 +140,11 @@
             methods: {
 				//预约设置
                 handleOrderSet(day){
+                    this.$prompt("Please Input the Number Reservations Available!","Order Setting",
+                        {confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            inputPattern: /^[0-9]*[1-9][0-9]*$/,
+                            inputErrorMessage: '只能输入正整数'})
                 },
 				//上传之前进行文件格式校验
                 beforeUpload(file){
