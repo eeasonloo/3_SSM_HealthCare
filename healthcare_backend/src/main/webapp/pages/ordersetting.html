@@ -144,7 +144,31 @@
                         {confirmButtonText: '确定',
                             cancelButtonText: '取消',
                             inputPattern: /^[0-9]*[1-9][0-9]*$/,
-                            inputErrorMessage: '只能输入正整数'})
+                            inputErrorMessage: '只能输入正整数'
+                        }).then(({value})=>{
+                                var params = {
+                                    orderDate: this.formatDate(day.getFullYear(),day.getMonth()+1,day.getDate()),
+                                    number: value
+                                };
+                                axios.post("/ordersetting/editNumberByDate.do",params).then((response)=>{
+                                    if(response.data.flag){
+                                        this.init(this.formatDate(day.getFullYear(),day.getMonth()+1,1));
+                                        this.$message({
+                                            type:'sucess',
+                                            message: response.data.message
+                                        });
+                                    }else{
+                                        this.$message.error(response.data.message);
+                                    }
+
+                                });
+
+                    }).catch(()=>{
+                        this.$message({
+                            type: 'info',
+                            message: "Request Cancelled!"
+                        });
+                    });
                 },
 				//上传之前进行文件格式校验
                 beforeUpload(file){
