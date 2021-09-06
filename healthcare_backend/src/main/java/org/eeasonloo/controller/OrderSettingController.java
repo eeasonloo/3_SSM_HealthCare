@@ -6,6 +6,7 @@ import org.eeasonloo.entity.Result;
 import org.eeasonloo.pojo.OrderSetting;
 import org.eeasonloo.service.OrderSettingService;
 import org.eeasonloo.utils.POIUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,5 +53,19 @@ public class OrderSettingController {
         } catch (Exception e) {
             return new Result(false, MessageConstant.ORDERSETTING_FAIL);
         }
+    }
+
+
+    @RequestMapping("/editNumberByDate")
+    public Result editNumberByDate(@RequestBody OrderSetting orderSetting){
+
+        try {
+            orderSettingService.editNumberByDate(orderSetting);
+            return new Result(true, MessageConstant.ORDERSETTING_SUCCESS);
+        } catch (Exception e) {
+            return new Result(false, MessageConstant.ORDERSETTING_FAIL);
+        }
+
+
     }
 }
