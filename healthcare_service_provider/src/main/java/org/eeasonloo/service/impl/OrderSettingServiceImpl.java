@@ -62,5 +62,19 @@ public class OrderSettingServiceImpl implements OrderSettingService {
         return resultAll;
     }
 
+    @Override
+    public void editNumberByDate(OrderSetting orderSetting) {
+        // 1.Check whether orderDate exist
+        int count = orderSettingDao.findCountByDate(orderSetting.getOrderDate());
+
+        if(count > 0){
+            //2. If date exist, edit numbers,
+            orderSettingDao.editNumberByOrderDate(orderSetting);
+        }else{
+            //3. If date not exist, add date and numbers.
+            orderSettingDao.add(orderSetting);
+        }
+    }
+
 
 }
