@@ -152,9 +152,10 @@
                                 };
                                 axios.post("/ordersetting/editNumberByDate.do",params).then((response)=>{
                                     if(response.data.flag){
-                                        this.init(this.formatDate(day.getFullYear(),day.getMonth()+1,1));
+
+                                        this.initData(this.formatDate(day.getFullYear(), day.getMonth() + 1, 1));
                                         this.$message({
-                                            type:'sucess',
+                                            type: 'success',
                                             message: response.data.message
                                         });
                                     }else{
