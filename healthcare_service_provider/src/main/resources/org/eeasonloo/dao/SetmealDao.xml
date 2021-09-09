@@ -25,4 +25,8 @@
         </if>
     </select>
 
+    <select id="findAll" resultType="org.eeasonloo.pojo.Setmeal">
+        select * from t_setmeal
+    </select>
+
 </mapper>
