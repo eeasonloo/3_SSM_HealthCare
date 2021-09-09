@@ -21,9 +21,9 @@ public class SetmealController {
     public Result getSetmeal(){
         try {
             List<Setmeal> setmealList = setmealService.findAll();
-            return new Result(true, MessageConstant.QUERY_SETMEAL_SUCCESS, setmealList);
+            return new Result(true, MessageConstant.GET_SETMEAL_LIST_SUCCESS, setmealList);
         } catch (Exception e) {
-            return new Result(false, MessageConstant.QUERY_SETMEAL_FAIL);
+            return new Result(false, MessageConstant.GET_SETMEAL_LIST_FAIL);
         }
 
     }
