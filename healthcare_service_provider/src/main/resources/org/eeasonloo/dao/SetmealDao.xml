@@ -29,4 +29,8 @@
         select * from t_setmeal
     </select>
 
+    <select id="findById" parameterType="Integer" resultType="org.eeasonloo.pojo.Setmeal">
+        select * from t_setmeal where id = #{id}
+    </select>
+
 </mapper>
