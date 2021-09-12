@@ -13,4 +13,6 @@ public interface SetmealService {
 
     public List<Setmeal> findAll();
 
+    public Setmeal findById(int id);
+
 }

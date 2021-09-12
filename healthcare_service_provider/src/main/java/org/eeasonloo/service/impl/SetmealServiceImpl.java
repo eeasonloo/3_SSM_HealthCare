@@ -51,6 +51,11 @@ public class SetmealServiceImpl implements SetmealService {
         return setmealDao.findAll();
     }
 
+    @Override
+    public Setmeal findById(int id) {
+        return setmealDao.findById(id);
+    }
+
     private void addAssociations(Integer setmealId, Integer[] checkgroupIds) {
         Map<String, Integer> map = new HashMap<>();
 
