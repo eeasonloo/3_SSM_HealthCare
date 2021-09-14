@@ -20,9 +20,8 @@
         <collection property="checkGroups"
                     column="id"
                     ofType="org.eeasonloo.pojo.CheckGroup"
-                    select="org.eeasonloo.dao.CheckGroupDao"
-                    javaType="ArrayList"
-        >
+                    select="org.eeasonloo.dao.CheckGroupDao.findCheckGroupById"
+                    javaType="ArrayList">
         </collection>
     </resultMap>
 
