@@ -83,7 +83,7 @@
         select * from t_checkgroup
     </select>
 
-    <select id="findCheckGroupById" resultMap="#">
+    <select id="findCheckGroupById" resultMap="findByIdResultMap">
         select * from t_checkgroup where id in (select checkgroup_id from t_setmeal_checkgroup where setmeal_id = #{id})
     </select>
 
