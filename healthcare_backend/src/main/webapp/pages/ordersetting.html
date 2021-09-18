@@ -4,9 +4,9 @@
         <!-- 页面meta -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>传智健康</title>
-        <meta name="description" content="传智健康">
-        <meta name="keywords" content="传智健康">
+        <title>SCU E-Healthcare</title>
+        <meta name="description" content="SCU E-Healthcare">
+        <meta name="keywords" content="SCU E-Healthcare">
         <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
         <!-- 引入样式 -->
         <link rel="stylesheet" href="../plugins/elementui/index.css">
@@ -22,11 +22,11 @@
     <body class="hold-transition">
     <div id="app">
         <div class="content-header">
-            <h1>预约管理<small>预约设置</small></h1>
+            <h1>Appointment Management<small>Appointment Settings</small></h1>
             <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>预约管理</el-breadcrumb-item>
-                <el-breadcrumb-item>预约设置</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
+                <el-breadcrumb-item>Appointment Management</el-breadcrumb-item>
+                <el-breadcrumb-item>Appointment Settings</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="app-container">
@@ -34,28 +34,29 @@
                 <div class="box ordersetting">
                     <el-card class="box-card">
                         <div class="boxMain">
-                            <el-button style="margin-bottom: 20px;margin-right: 20px" type="primary" @click="downloadTemplate()">模板下载</el-button>
+                            <el-button style="margin-bottom: 20px;margin-right: 20px" type="primary" @click="downloadTemplate()">Template Download</el-button>
                             <el-upload action="/ordersetting/upload.do"
                                        name="excelFile"
                                        :show-file-list="false"
                                        :on-success="handleSuccess"
                                        :before-upload="beforeUpload">
-                                <el-button type="primary">上传文件</el-button>
+                                <el-button type="primary">Upload File</el-button>
                             </el-upload>
                         </div>
                         <div>
-                            操作说明：请点击"模板下载"按钮获取模板文件，在模板文件中录入预约设置数据后点击"上传文件"按钮上传模板文件。
+                            Instructions: Please click the "Template Download" button to get the template file,
+                            enter the appointment setting data in the template file and click the "Upload File" button to upload the template file.
                         </div>
                     </el-card>
                     <div class="calendar">
                         <!-- 年份 月份 -->
                         <div class="month">
                             <div class="currentdate">
-                                <span class="choose-year">{{ currentYear }}年</span>
-                                <span class="choose-month">{{ currentMonth }}月</span>
+                                <span class="choose-year">{{ currentYear }}Year</span>
+                                <span class="choose-month">{{ currentMonth }}Month</span>
                             </div>
                             <div class="choose">
-                                <span @click="goCurrentMonth(currentYear,currentMonth)" class="gotoday">今天</span>
+                                <span @click="goCurrentMonth(currentYear,currentMonth)" class="gotoday">Today</span>
                                 <span @click="pickPre(currentYear,currentMonth)">❮</span>
                                 <span @click="pickNext(currentYear,currentMonth)">❯</span>
                             </div>
@@ -64,13 +65,13 @@
                         <!-- 星期 -->
                         <div class="caldate">
                             <ul class="weekdays">
-                                <li>周一</li>
-                                <li>周二</li>
-                                <li>周三</li>
-                                <li>周四</li>
-                                <li>周五</li>
-                                <li>周六</li>
-                                <li>周日</li>
+                                <li>Monday</li>
+                                <li>Tuesday</li>
+                                <li>Wednesday</li>
+                                <li>Thursday</li>
+                                <li>Friday</li>
+                                <li>Saturday</li>
+                                <li>Sunday</li>
                             </ul>
                             <!-- 日期 -->
                             <ul class="days">
@@ -90,20 +91,20 @@
                                                     <template v-if="obj.date == dayobject.day.getDate()">
                                                         <template v-if="obj.number > obj.reservations">
                                                             <div class="usual">
-                                                                <p>可预约{{obj.number}}人</p>
-                                                                <p>已预约{{obj.reservations}}人</p>
+                                                                <p>Available {{obj.number}} Persons</p>
+                                                                <p>Reserved for {{obj.reservations}} Persons</p>
                                                             </div>
                                                         </template>
                                                         <template v-else>
                                                             <div class="fulled">
-                                                                <p>可预约{{obj.number}}人</p>
-                                                                <p>已预约{{obj.reservations}}人</p>
-                                                                <p>已满</p>
+                                                                <p>Available {{obj.number}} Person</p>
+                                                                <p>Reserved for {{obj.reservations}} Person</p>
+                                                                <p>Fully Booked</p>
                                                             </div>
                                                         </template>
                                                     </template>
                                                 </template>
-                                                <button v-if="dayobject.day > today" @click="handleOrderSet(dayobject.day)" class="orderbtn">设置</button>
+                                                <button v-if="dayobject.day > today" @click="handleOrderSet(dayobject.day)" class="orderbtn">Setting</button>
                                             </template>
 											
                                         </div>
@@ -141,10 +142,10 @@
 				//预约设置
                 handleOrderSet(day){
                     this.$prompt("Please Input the Number Reservations Available!","Order Setting",
-                        {confirmButtonText: '确定',
-                            cancelButtonText: '取消',
+                        {confirmButtonText: 'Confirm',
+                            cancelButtonText: 'Cancel',
                             inputPattern: /^[0-9]*[1-9][0-9]*$/,
-                            inputErrorMessage: '只能输入正整数'
+                            inputErrorMessage: 'Can Only input whole number!'
                         }).then(({value})=>{
                                 var params = {
                                     orderDate: this.formatDate(day.getFullYear(),day.getMonth()+1,day.getDate()),
@@ -181,7 +182,7 @@
                     if (isXLSX) {
                         return true;
                     }
-                    this.$message.error('上传文件只能是xls或者xlsx格式!');
+                    this.$message.error('Upload only xls or xlsx format files');
                     return false;
                 },
 				//下载模板文件
