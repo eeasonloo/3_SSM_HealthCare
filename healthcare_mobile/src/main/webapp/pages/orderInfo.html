@@ -119,6 +119,9 @@
                     }
                 },
                 mounted(){
+                    axios.post("/setmeal/findById.do?id=" + id).then((response)=>{
+                        this.setmeal = response.data.data;
+                    });
                 }
             });
         </script>
