@@ -53,6 +53,20 @@ function checkTelephone(telephone) {
 }
 
 /**
+ * Email Address Regular Expression
+ */
+function checkEmailAddress(emailAddress) {
+    var reg=/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+    if (!reg.test(emailAddress)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+
+/**
  * 身份证号码校验
  * 身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X
  */
