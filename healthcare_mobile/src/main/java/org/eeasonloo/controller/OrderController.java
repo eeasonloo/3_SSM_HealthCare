@@ -61,4 +61,17 @@ public class OrderController {
         }
         return result;
     }
+
+    @RequestMapping("/findById")
+    public Result findById(Integer id){
+        try{
+            Map map = orderService.findById(id);
+            //查询预约信息成功
+            return new Result(true,MessageConstant.QUERY_ORDER_SUCCESS,map);
+        }catch (Exception e){
+            e.printStackTrace();
+            //查询预约信息失败
+            return new Result(false,MessageConstant.QUERY_ORDER_FAIL);
+        }
+    }
 }
