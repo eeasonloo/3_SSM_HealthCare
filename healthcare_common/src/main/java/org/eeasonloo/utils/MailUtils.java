@@ -65,16 +65,16 @@ public class MailUtils {
 
 			if(templateCode.equals(VALIDATE_CODE)){
 				// Set Subject: header field
-				message.setSubject("Verification Code" + param);
+				message.setSubject("Verification Code " + param);
 
 				// Now set the actual message
-				message.setText("Ignore this, if u didnt make appointment to our SCU_Healthcare System. Sorry for your time!");
+				message.setText("Ignore this, if u didnt make appointment/login to our SCU_Healthcare System. Sorry for your time!");
 
 			}
 
             if(templateCode.equals(ORDER_NOTICE)){
 				// Set Subject: header field
-				message.setSubject("Your Appointment is Made Successfully");
+				message.setSubject("Your Appointment is Made Successfully on " + param);
 
 				// Now set the actual message
 				message.setText("Thank you for making appointment to our SCU_Healthcare System. See you soon!");
