@@ -61,10 +61,6 @@ public class MemberController {
         }
     }
 
-    @RequestMapping("/findByEmail")
-    public Result findByEmail(@RequestBody Map map){
-        map.get()
 
-    }
 
 }
