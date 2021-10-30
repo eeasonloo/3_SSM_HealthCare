@@ -5,6 +5,7 @@ import org.eeasonloo.pojo.CheckItem;
 import org.eeasonloo.pojo.Permission;
 
 import java.util.List;
+import java.util.Set;
 
 public interface PermissionDao {
 
@@ -21,4 +22,7 @@ public interface PermissionDao {
     public void edit(Permission permission);
 
     public List<Permission> findAll();
+
+    public Set<Permission> findByRoleId(int roleId);
+
 }

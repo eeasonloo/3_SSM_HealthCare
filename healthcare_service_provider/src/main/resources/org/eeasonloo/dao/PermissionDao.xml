@@ -12,7 +12,7 @@
     <select id="selectByCondition" parameterType="String" resultType="org.eeasonloo.pojo.Permission">
         select * from t_permission
         <if test="value != null and value.length > 0">
-            where code = #{value} or name = #{value}
+            where name = #{value} or keyword = #{value}
         </if>
     </select>
 
@@ -52,6 +52,14 @@
         select * from t_permission
             where id in
             (select permission_id from t_role_permission where role_id = #{id})
+    </select>
+
+    <select id="findByRoleId"
+            parameterType="int"
+            resultType="org.eeasonloo.pojo.Permission">
+        select  p.*
+      		from t_permission p ,t_role_permission rp
+      		where p.id = rp.permission_id and rp.role_id = #{roleId}
     </select>
 
 </mapper>
