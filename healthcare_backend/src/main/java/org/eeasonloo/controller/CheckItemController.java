@@ -7,6 +7,7 @@ import org.eeasonloo.entity.QueryPageBean;
 import org.eeasonloo.entity.Result;
 import org.eeasonloo.pojo.CheckItem;
 import org.eeasonloo.service.CheckItemService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +52,7 @@ public class CheckItemController {
         return new Result(false,MessageConstant.QUERY_CHECKITEM_FAIL);
     }
 
-
+    @PreAuthorize("hasAuthority('CHECKITEM_DELETE')")//权限校验
     @RequestMapping("/delete")
     public Result delete(Integer id){
 
