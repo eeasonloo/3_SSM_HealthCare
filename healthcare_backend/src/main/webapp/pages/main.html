@@ -38,14 +38,14 @@
                         <el-dropdown class="avatar-container right-menu-item" trigger="click">
                             <div class="avatar-wrapper">
                                 <img src="../img/man.png" class="user-avatar">
-                                Eason.Loo
+                                {{username}}
                             </div>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item divided>
                                     <span style="display:block;">Reset Password</span>
                                 </el-dropdown-item>
                                 <el-dropdown-item divided>
-                                        <span style="display:block;">Logout</span>
+                                        <span style="display:block;"><a href="/logout.do">Logout</a></span>
                                     </el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
@@ -79,10 +79,12 @@
 <script src="../js/vue.js"></script>
 <script src="../plugins/elementui/index.js"></script>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
 <script>
     new Vue({
         el: '#app',
         data:{
+            username:null,//用户名
             menuList:[
                 {
                     "path": "1",
@@ -185,7 +187,14 @@
                     ]
                 }
             ]
+        },
+        created(){
+            //发送请求获取当前登录用户的用户名
+            axios.get('/user/getUsername.do').then((response)=>{
+                this.username = response.data.data;
+            });
         }
+
     });
     $(function() {
             var wd = 200;
