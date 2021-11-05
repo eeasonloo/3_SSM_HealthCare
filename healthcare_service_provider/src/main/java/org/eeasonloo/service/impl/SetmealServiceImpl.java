@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import org.eeasonloo.dao.SetmealDao;
 import org.eeasonloo.entity.PageResult;
 import org.eeasonloo.entity.RedisConstant;
+import org.eeasonloo.pojo.CheckGroup;
 import org.eeasonloo.pojo.Setmeal;
 import org.eeasonloo.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,47 @@ public class SetmealServiceImpl implements SetmealService {
             map.put("checkgroup_id", checkgroupId);
             setmealDao.addAssociationsSetmealAndCheckgroup(map);
         }
+    }
+
+    @Override
+    public void delete(Integer id) {
+        int count = setmealDao.findCountBySetmealId(id);
+
+        if(count > 0) throw new RuntimeException("The Setmeal is currently binded to some CheckGroup, it cant be delete!");
 
 
+        //2. if not referenced, Delete operations invoke.
+        setmealDao.deleteById(id);
+    }
+
+    @Override
+    public List<Integer> findCheckGroupIdsbySetmealId(Integer setmealId) {
+        return setmealDao.findCheckGroupIdsbySetmealId(setmealId);
+    }
+
+    @Override
+    public void edit(Integer[] checkgroupIds, Setmeal setmeal) {
+        //1. update t_setmeal
+        setmealDao.edit(setmeal);
+
+        //2. delete association in t_setmeal_checkgroup when id = current setmeal Id
+        setmealDao.deleteAssociations(setmeal.getId());
+
+        //3. add association in t_setmeal_checkgroup
+        setSetmealAndCheckGroup(setmeal.getId(),checkgroupIds);
+
+    }
+
+    private void setSetmealAndCheckGroup(Integer setmealId, Integer[] checkGroupIds) {
+
+        if(checkGroupIds != null && checkGroupIds.length > 0){
+            Map<String,Integer> setmeal_checkGroupMap = new HashMap<>();
+
+            for (Integer checkGroupId : checkGroupIds) {
+                setmeal_checkGroupMap.put("setmeal_id", setmealId);
+                setmeal_checkGroupMap.put("checkgroup_id",checkGroupId);
+                setmealDao.setSetmealAndCheckGroup(setmeal_checkGroupMap);
+            }
+        }
     }
 }

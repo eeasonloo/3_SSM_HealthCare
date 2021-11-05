@@ -1,6 +1,7 @@
 package org.eeasonloo.service;
 
 import org.eeasonloo.entity.PageResult;
+import org.eeasonloo.pojo.CheckGroup;
 import org.eeasonloo.pojo.Setmeal;
 
 import java.util.List;
@@ -15,4 +16,9 @@ public interface SetmealService {
 
     public Setmeal findById(int id);
 
+    public void delete(Integer id);
+
+    public List<Integer> findCheckGroupIdsbySetmealId(Integer setmealId);
+
+    public void edit(Integer[] checkgroupIds, Setmeal setmeal);
 }

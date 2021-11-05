@@ -55,4 +55,59 @@
         select * from t_setmeal where id = #{id}
     </select>
 
+    <select id="findCountBySetmealId" parameterType="Integer" resultType="Integer">
+        select count(*) from t_setmeal_checkgroup where setmeal_id = #{setmeal_id}
+    </select>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete from t_setmeal where id = #{id}
+    </delete>
+
+    <select id="findCheckGroupIdsbySetmealId" parameterType="Integer" resultType="Integer">
+        select checkgroup_id from t_setmeal_checkgroup where setmeal_id = #{setmealId}
+    </select>
+
+    <update id="edit" parameterType="org.eeasonloo.pojo.Setmeal">
+        update t_setmeal
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="helpCode != null">
+                helpCode = #{helpCode},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="attention != null">
+                attention = #{attention},
+            </if>
+            <if test="img != null">
+                img = #{img},
+            </if>
+
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAssociations" parameterType="Integer">
+        delete from t_setmeal_checkgroup where setmeal_id = #{setmeal_id}
+    </delete>
+
+    <insert id="setSetmealAndCheckGroup" parameterType="hashMap">
+        insert into t_setmeal_checkgroup(setmeal_id,checkgroup_id)
+        values(#{setmeal_id},#{checkgroup_id})
+    </insert>
 </mapper>

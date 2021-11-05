@@ -6,10 +6,12 @@ import org.eeasonloo.entity.PageResult;
 import org.eeasonloo.entity.QueryPageBean;
 import org.eeasonloo.entity.RedisConstant;
 import org.eeasonloo.entity.Result;
+import org.eeasonloo.pojo.CheckGroup;
 import org.eeasonloo.pojo.Setmeal;
 import org.eeasonloo.service.CheckGroupService;
 import org.eeasonloo.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,7 @@ import redis.clients.jedis.JedisPool;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -75,4 +78,61 @@ public class SetmealController {
             return new Result(false, MessageConstant.QUERY_SETMEAL_FAIL);
         }
     }
+
+    @PreAuthorize("hasAuthority('CHECKITEM_DELETE')")//权限校验
+    @RequestMapping("/delete")
+    public Result delete(Integer id){
+
+        try {
+            setmealService.delete(id);
+        } catch (RuntimeException r) {
+            return new Result(false,r.getMessage());
+        }catch (Exception e) {
+            return new Result(false,MessageConstant.DELETE_CHECKITEM_FAIL);
+        }
+        return new Result(true, MessageConstant.DELETE_CHECKITEM_SUCCESS);
+
+    }
+
+    @RequestMapping("/findById")
+    public Result findById(Integer setmealId){
+        try {
+            Setmeal setmeal = setmealService.findById(setmealId);
+            return new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS,setmeal);
+        } catch (Exception e) {
+            return new Result(false,MessageConstant.QUERY_CHECKGROUP_FAIL);
+        }
+    }
+
+    @RequestMapping("/findAll")
+    public Result findAll(){
+        try {
+            List<Setmeal> setmealList = setmealService.findAll();
+            return new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS, setmealList);
+        } catch (Exception e) {
+            return new Result(false, MessageConstant.QUERY_CHECKGROUP_FAIL);
+        }
+
+    }
+
+    @RequestMapping("/findCheckGroupIdsbySetmealId")
+    public Result findCheckGroupIdsbySetmealId(Integer setmealId){
+        try {
+            List<Integer> checkGroupIds = setmealService.findCheckGroupIdsbySetmealId(setmealId);
+            return new Result(true, MessageConstant.QUERY_CHECKITEM_SUCCESS,checkGroupIds);
+        } catch (Exception e) {
+            return new Result(false,MessageConstant.QUERY_CHECKITEM_FAIL);
+        }
+    }
+
+    @RequestMapping("/edit")
+    public Result edit(Integer[] checkgroupIds, @RequestBody Setmeal setmeal){
+        try {
+            setmealService.edit(checkgroupIds, setmeal);
+            return new Result(true, MessageConstant.EDIT_CHECKGROUP_SUCCESS);
+        } catch (Exception e) {
+            return new Result(false,MessageConstant.EDIT_CHECKGROUP_FAIL);
+        }
+    }
+
 }
