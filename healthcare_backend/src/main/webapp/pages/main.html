@@ -175,13 +175,25 @@
                 },
                 {
                     "path": "5",     //菜单项所对应的路由路径
-                    "title": "Statistic",     //菜单项名称
+                    "title": "Statistics",     //菜单项名称
                     "icon":"fa-heartbeat",
                     "children":[//是否有子菜单，若没有，则为[]
                         {
                             "path": "/5-1",
-                            "title": "Workload Analytic",
-                            "linkUrl":"all-medical-list.html",
+                            "title": "Member Count Graph",
+                            "linkUrl":"report_member.html",
+                            "children":[]
+                        },
+                        {
+                            "path": "/5-2",
+                            "title": "Setmeal Percentage Gaph",
+                            "linkUrl":"report_setmeal.html",
+                            "children":[]
+                        },
+                        {
+                            "path": "/5-3",
+                            "title": "Operation Data",
+                            "linkUrl":"report_business.html",
                             "children":[]
                         }
                     ]
