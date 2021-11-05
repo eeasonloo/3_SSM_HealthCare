@@ -64,7 +64,7 @@
         select * from t_checkitem
     </select>
 
-    <select id="findCheckItemById" resultType="org.eeasonloo.pojo.CheckItem">
+    <select id="findCheckItemById"  parameterType="Integer" resultType="org.eeasonloo.pojo.CheckItem">
         select * from t_checkitem
             where id in
             (select checkitem_id from t_checkgroup_checkitem where checkgroup_id = #{id})
