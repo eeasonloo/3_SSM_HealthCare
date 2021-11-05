@@ -32,4 +32,6 @@ public interface SetmealDao {
 
     public void setSetmealAndCheckGroup(Map<String,Integer> map);
 
+    public List<Map<String,Object>> findSetmealCount();
+
 }
