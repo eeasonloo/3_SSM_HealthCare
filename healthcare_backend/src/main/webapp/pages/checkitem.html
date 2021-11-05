@@ -338,21 +338,7 @@
                 // 删除
                 handleDelete(row) {
                     this.$confirm("Are you sure you want to delete this checkitem ?","Warning",{type:'warning'}).then(()=> {
-                        /*axios.get("/checkitem/delete.do?id=" + row.id).then((response) => {
-                            if (response.data.flag) {
-                                this.$message({
-                                    type: 'success',
-                                    message: response.data.message
-                                });
-                            } else {
-                                this.$message.error(response.data.message);
-                            }
-                            this.findPage();
-                        }).catch((r) => {
-                            this.showMessage(r);
-                        });
-                    });
-                }*/
+
                         //点击确定按钮执行此代码
                         axios.get("/checkitem/delete.do?id=" + row.id).then((response)=> {
                             if(!response.data.flag){
