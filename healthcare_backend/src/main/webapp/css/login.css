@@ -44,6 +44,7 @@ html,body {
   padding: 35px 35px 15px 35px;
   margin: -200px 0 0 0;
   background:#f5f5f5;
+  vertical-align: middle;
 }
 .login-container .tips {
   font-size: 14px;
@@ -122,7 +123,7 @@ html,body {
 	background: url(../img/loginLogo.png) no-repeat;
 	display:inline-block;
 	width: 200px;
-	height: 30px;
+	height: 150px;
   display: inline-block;
   vertical-align: middle;
 }
