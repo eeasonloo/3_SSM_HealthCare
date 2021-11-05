@@ -7,6 +7,7 @@ import org.eeasonloo.entity.QueryPageBean;
 import org.eeasonloo.entity.Result;
 import org.eeasonloo.pojo.CheckGroup;
 import org.eeasonloo.service.CheckGroupService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,6 +68,20 @@ public class CheckGroupController {
         } catch (Exception e) {
             return new Result(false,MessageConstant.EDIT_CHECKGROUP_FAIL);
         }
+    }
+
+    @RequestMapping("/delete")
+    public Result delete(Integer id){
+
+        try {
+            checkGroupService.delete(id);
+        } catch (RuntimeException r) {
+            return new Result(false,r.getMessage());
+        }catch (Exception e) {
+            return new Result(false,MessageConstant.DELETE_CHECKITEM_FAIL);
+        }
+        return new Result(true, MessageConstant.DELETE_CHECKITEM_SUCCESS);
+
     }
 
     @RequestMapping("/findAll")

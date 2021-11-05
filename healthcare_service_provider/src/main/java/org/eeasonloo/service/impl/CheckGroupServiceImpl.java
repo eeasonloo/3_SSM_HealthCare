@@ -74,6 +74,17 @@ public class CheckGroupServiceImpl implements CheckGroupService {
     }
 
     @Override
+    public void delete(Integer id) {
+        int count = checkGroupDao.findCountByCheckGroupId(id);
+
+        if(count > 0) throw new RuntimeException("The Checkgroup is currently binded to some CheckItem, it cant be delete!");
+
+
+        //2. if not referenced, Delete operations invoke.
+        checkGroupDao.deleteById(id);
+    }
+
+    @Override
     public List<CheckGroup> findAll() {
         return checkGroupDao.findAll();
     }

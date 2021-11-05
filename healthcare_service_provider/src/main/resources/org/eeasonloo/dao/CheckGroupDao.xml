@@ -87,4 +87,12 @@
         select * from t_checkgroup where id in (select checkgroup_id from t_setmeal_checkgroup where setmeal_id = #{id})
     </select>
 
+    <select id="findCountByCheckGroupId" parameterType="Integer" resultType="Integer">
+        select count(*) from t_setmeal_checkgroup where checkgroup_id = #{checkgroup_id}
+    </select>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete from t_checkgroup where id = #{id}
+    </delete>
+
 </mapper>
