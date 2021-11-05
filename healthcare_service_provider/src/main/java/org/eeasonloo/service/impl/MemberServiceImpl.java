@@ -8,6 +8,9 @@ import org.eeasonloo.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Transactional
 @Service(interfaceClass = MemberService.class)
@@ -27,5 +30,17 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member findByEmail(String email) {
         return memberDao.findByEmail(email);
+    }
+
+    //根据月份统计会员数量
+    @Override
+    public List<Integer> findMemberCountByMonth(List<String> month) {
+        List<Integer> list = new ArrayList<Integer>();
+        for(String m : month){
+            m = m + ".31";//格式：2019.04.31
+            Integer count = memberDao.findMemberCountBeforeDate(m);
+            list.add(count);
+        }
+        return list;
     }
 }

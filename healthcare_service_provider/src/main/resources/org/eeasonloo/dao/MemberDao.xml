@@ -86,7 +86,7 @@
 
     <!--根据日期统计会员数，统计指定日期之前的会员数-->
     <select id="findMemberCountBeforeDate" parameterType="string" resultType="int">
-        select count(id) from t_member where regTime = #{value}
+        select count(id) from t_member where regTime &lt;= #{value}
     </select>
 
     <!--根据日期统计会员数-->
@@ -96,7 +96,7 @@
 
     <!--根据日期统计会员数，统计指定日期之后的会员数-->
     <select id="findMemberCountAfterDate" parameterType="string" resultType="int">
-        select count(id) from t_member where regTime = #{value}
+        select count(id) from t_member where regTime &gt;= #{value}
     </select>
 
     <!--总会员数-->
