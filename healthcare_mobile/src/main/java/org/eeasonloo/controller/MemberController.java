@@ -8,6 +8,7 @@ import org.eeasonloo.entity.Result;
 import org.eeasonloo.pojo.Member;
 import org.eeasonloo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,6 +61,20 @@ public class MemberController {
             return new Result(true,MessageConstant.LOGIN_SUCCESS);
         }
     }
+
+    @RequestMapping("/findByEmail")
+    public Result findByEmail(@CookieValue(name = "login_member_email") String email){
+        String userInfo = jedisPool.getResource().get(email);
+
+        if(userInfo != null){
+            return new Result(true, MessageConstant.QUERY_MEMBER_SUCCESS, JSON.parse(userInfo));
+        }else{
+            return new Result(false,MessageConstant.QUERY_MEMBER_FAIL);
+        }
+
+    }
+
+
 
 
 
