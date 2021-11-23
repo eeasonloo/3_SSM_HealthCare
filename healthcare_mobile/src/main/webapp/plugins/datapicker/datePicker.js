@@ -74,27 +74,27 @@ window.datePicker = (function() {
                 _self.gearDate.className = "gearDate";
                 _self.gearDate.innerHTML = '<div class="date_ctrl slideInUp">' +
                     '<div class="date_btn_box">' +
-                    '<div class="date_btn lcalendar_cancel">取消</div>' +
-                    '<div class="date_btn lcalendar_finish">确定</div>' +
+                    '<div class="date_btn lcalendar_cancel">Cancel</div>' +
+                    '<div class="date_btn lcalendar_finish">Confirm</div>' +
                     '</div>' +
                     '<div class="date_roll_mask">' +
                     '<div class="date_roll">' +
                     '<div>' +
                     '<div class="gear date_yy" data-datetype="date_yy"></div>' +
                     '<div class="date_grid">' +
-                    '<div>年</div>' +
+                    '<div>Year</div>' +
                     '</div>' +
                     '</div>' +
                     '<div>' +
                     '<div class="gear date_mm" data-datetype="date_mm"></div>' +
                     '<div class="date_grid">' +
-                    '<div>月</div>' +
+                    '<div>Month</div>' +
                     '</div>' +
                     '</div>' +
                     '<div>' +
                     '<div class="gear date_dd" data-datetype="date_dd"></div>' +
                     '<div class="date_grid">' +
-                    '<div>日</div>' +
+                    '<div>Day</div>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -162,8 +162,8 @@ window.datePicker = (function() {
                 _self.gearDate.className = "gearDate";
                 _self.gearDate.innerHTML = '<div class="date_ctrl slideInUp">' +
                     '<div class="date_btn_box">' +
-                    '<div class="date_btn lcalendar_cancel">取消</div>' +
-                    '<div class="date_btn lcalendar_finish">确定</div>' +
+                    '<div class="date_btn lcalendar_cancel">Cancel</div>' +
+                    '<div class="date_btn lcalendar_finish">Confirm</div>' +
                     '</div>' +
                     '<div class="date_roll_mask">' +
                     '<div class="ym_roll">' +
@@ -234,8 +234,8 @@ window.datePicker = (function() {
                 _self.gearDate.className = "gearDatetime";
                 _self.gearDate.innerHTML = '<div class="date_ctrl slideInUp">' +
                     '<div class="date_btn_box">' +
-                    '<div class="date_btn lcalendar_cancel">取消</div>' +
-                    '<div class="date_btn lcalendar_finish">确定</div>' +
+                    '<div class="date_btn lcalendar_cancel">Cancel</div>' +
+                    '<div class="date_btn lcalendar_finish">Confirm</div>' +
                     '</div>' +
                     '<div class="date_roll_mask">' +
                     '<div class="datetime_roll">' +
@@ -355,8 +355,8 @@ window.datePicker = (function() {
                 _self.gearDate.className = "gearDate";
                 _self.gearDate.innerHTML = '<div class="date_ctrl slideInUp">' +
                     '<div class="date_btn_box">' +
-                    '<div class="date_btn lcalendar_cancel">取消</div>' +
-                    '<div class="date_btn lcalendar_finish">确定</div>' +
+                    '<div class="date_btn lcalendar_cancel">Cancel</div>' +
+                    '<div class="date_btn lcalendar_finish">Confirm</div>' +
                     '</div>' +
                     '<div class="date_roll_mask">' +
                     '<div class="time_roll">' +

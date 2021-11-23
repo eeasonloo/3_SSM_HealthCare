@@ -87,11 +87,11 @@ function doLoop() {
     validateCodeButton.disabled = true;//将按钮置为不可点击
     nums--;
     if (nums > 0) {
-        validateCodeButton.value = nums + '秒后重新获取';
+        validateCodeButton.value = nums + 'second(s)';
     } else {
         clearInterval(clock); //清除js定时器
         validateCodeButton.disabled = false;
-        validateCodeButton.value = '重新获取验证码';
+        validateCodeButton.value = 'Get New V.Code';
         nums = 30; //重置时间
     }
 }
