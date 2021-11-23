@@ -2,6 +2,7 @@ package org.eeasonloo.dao;
 
 import com.github.pagehelper.Page;
 import org.eeasonloo.pojo.Member;
+import org.eeasonloo.pojo.Setmeal;
 
 import java.util.List;
 
@@ -17,5 +18,7 @@ public interface MemberDao {
     public Integer findMemberCountByDate(String date);
     public Integer findMemberCountAfterDate(String date);
     public Integer findMemberTotalCount();
+
+    public Page<Setmeal> findByCondition(String queryString);
 
 }
