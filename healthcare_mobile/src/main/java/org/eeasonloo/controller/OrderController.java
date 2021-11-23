@@ -5,15 +5,19 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import org.eeasonloo.constant.MessageConstant;
 import org.eeasonloo.constant.RedisMessageConstant;
 import org.eeasonloo.entity.Result;
+import org.eeasonloo.pojo.Member;
 import org.eeasonloo.pojo.Order;
+import org.eeasonloo.service.MemberService;
 import org.eeasonloo.service.OrderService;
 import org.eeasonloo.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.JedisPool;
 
+import java.util.List;
 import java.util.Map;
 
 @RequestMapping("/order")
@@ -21,8 +25,12 @@ import java.util.Map;
 public class OrderController {
     @Reference
     private OrderService orderService;
+    @Reference
+    private MemberService memberService;
     @Autowired
     private JedisPool jedisPool;
+
+
 
     /**
      * 体检预约
@@ -73,5 +81,23 @@ public class OrderController {
             //查询预约信息失败
             return new Result(false,MessageConstant.QUERY_ORDER_FAIL);
         }
+    }
+
+    @RequestMapping("/findById4AppointmentList")
+    public Result findById4AppointmentList(@CookieValue(name = "login_member_email") String email){
+
+        try{
+            Member member = memberService.findByEmail(email);
+            int memberId = member.getId();
+
+            System.out.println(memberId);
+
+            List orderLists = orderService.findById4AppointmentList(memberId);
+
+            return new Result(true, MessageConstant.QUERY_ORDER_SUCCESS, orderLists);
+        }catch (Exception e){
+            return new Result(true, MessageConstant.QUERY_ORDER_FAIL);
+        }
+
     }
 }

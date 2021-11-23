@@ -1,19 +1,21 @@
 package org.eeasonloo.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.eeasonloo.constant.MessageConstant;
 import org.eeasonloo.dao.MemberDao;
 import org.eeasonloo.dao.OrderDao;
 import org.eeasonloo.dao.OrderSettingDao;
+import org.eeasonloo.entity.PageResult;
 import org.eeasonloo.entity.Result;
-import org.eeasonloo.pojo.Member;
-import org.eeasonloo.pojo.Order;
-import org.eeasonloo.pojo.OrderSetting;
+import org.eeasonloo.pojo.*;
 import org.eeasonloo.service.OrderService;
 import org.eeasonloo.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -97,4 +99,43 @@ public class OrderServiceImpl implements OrderService {
         }
         return map;
     }
+
+    public List findById4MoreDetail(){
+        List<Integer> orderIds = orderDao.findAllOrderIds();
+
+        List<OrderList> orderLists = new ArrayList<OrderList>();
+        for (int orderId : orderIds) {
+            orderLists.add(orderDao.findById4MoreDetail(orderId)) ;
+        }
+        return orderLists;
+    }
+
+    @Override
+    public void delete(Integer id) {
+
+        orderDao.deleteById(id);
+    }
+
+    @Override
+    public OrderList findByIdforEdit(Integer id) {
+        return orderDao.findByIdforEdit(id);
+    }
+
+    @Override
+    public Integer findSetmealIdbyOrderId(Integer id) {
+        return orderDao.findSetmealIdbyOrderId(id);
+    }
+
+    @Override
+    public List findById4AppointmentList(Integer id){
+        List<Integer> orderIds = orderDao.findAllOrderIdsbyMemberId(id);
+
+        List<OrderList> orderLists = new ArrayList<OrderList>();
+        for (int orderId : orderIds) {
+            orderLists.add(orderDao.findById4MoreDetail(orderId)) ;
+        }
+        return orderLists;
+    }
+
+
 }

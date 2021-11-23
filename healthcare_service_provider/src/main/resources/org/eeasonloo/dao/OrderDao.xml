@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.eeasonloo.dao.OrderDao" >
+<mapper namespace="org.eeasonloo.dao.OrderDao">
+
     <resultMap id="baseResultMap" type="org.eeasonloo.pojo.Order">
         <id column="id" property="id"/>
         <result column="member_id" property="memberId"/>
@@ -10,6 +11,8 @@
         <result column="orderStatus" property="orderStatus"/>
         <result column="setmeal_id" property="setmealId"/>
     </resultMap>
+
+
     <!--新增-->
     <insert id="add" parameterType="org.eeasonloo.pojo.Order">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
@@ -59,35 +62,75 @@
       where o.member_id=m.id and o.setmeal_id=s.id and o.id=#{id}
     </select>
 
+    <!--For Orders Ids for Current Member -->
+    <select id="findAllOrderIdsbyMemberId" parameterType="Integer" resultType="Integer">
+      select id from t_order where member_id=#{id}
+    </select>
+
+    <!--For Order List Display -->
+    <select id="findById4MoreDetail" parameterType="int" resultType="org.eeasonloo.pojo.OrderList">
+      select o.id id, m.name memberName, m.email memberEmail,s.name setmealName,o.orderDate orderDate,o.orderType orderType, o.orderStatus orderStatus
+      from
+      t_order o,
+      t_member m,
+      t_setmeal s
+      where o.member_id=m.id and o.setmeal_id=s.id and o.id=#{id}
+    </select>
+    <select id="findAllOrderIds" resultType="Integer">
+      select id from t_order
+    </select>
+
+    <!--For Order List Display -->
+    <select id="findByIdforEdit" parameterType="Integer" resultType="org.eeasonloo.pojo.OrderList">
+      select o.id id, m.name memberName, m.email memberEmail,s.name setmealName,o.orderDate orderDate,o.orderType orderType, o.orderStatus orderStatus
+      from
+      t_order o,
+      t_member m,
+      t_setmeal s
+      where o.member_id=m.id and o.setmeal_id=s.id and o.id=#{id}
+    </select>
+
+    <!--For Existing Setmeal Display -->
+    <select id="findSetmealIdbyOrderId" parameterType="Integer" resultType="Integer">
+      select setmeal_id from t_order o where  o.id=#{id}
+    </select>
+
+
+
     <!--根据日期统计预约数-->
     <select id="findOrderCountByDate" parameterType="string" resultType="int">
-  select count(id) from t_order where orderDate = #{value}
-</select>
+      select count(id) from t_order where orderDate = #{value}
+    </select>
 
     <!--根据日期统计预约数，统计指定日期之后的预约数-->
     <select id="findOrderCountAfterDate" parameterType="string" resultType="int">
-  select count(id) from t_order where orderDate &gt;= #{value}
-</select>
+      select count(id) from t_order where orderDate &gt;= #{value}
+    </select>
 
     <!--根据日期统计到诊数-->
     <select id="findVisitsCountByDate" parameterType="string" resultType="int">
-  select count(id) from t_order where orderDate = #{value} and orderStatus = '已到诊'
-</select>
+      select count(id) from t_order where orderDate = #{value} and orderStatus = 'Attended'
+    </select>
 
     <!--根据日期统计到诊数，统计指定日期之后的到诊数-->
     <select id="findVisitsCountAfterDate" parameterType="string" resultType="int">
-  select count(id) from t_order where orderDate &gt;= #{value} and orderStatus = '已到诊'
-</select>
+      select count(id) from t_order where orderDate &gt;= #{value} and orderStatus = 'Attended'
+    </select>
 
     <!--热门套餐，查询前4条-->
     <select id="findHotSetmeal" resultType="map">
-  select
-      s.name,
-      count(o.id) setmeal_count ,
-      count(o.id)/(select count(id) from t_order) proportion
-    from t_order o inner join t_setmeal s on s.id = o.setmeal_id
-    group by o.setmeal_id
-    order by setmeal_count desc
-  	limit 0,4
-</select>
+      select
+          s.name,
+          count(o.id) setmeal_count ,
+          count(o.id)/(select count(id) from t_order) proportion
+        from t_order o inner join t_setmeal s on s.id = o.setmeal_id
+        group by o.setmeal_id
+        order by setmeal_count desc
+        limit 0,4
+    </select>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete from t_order where id = #{id}
+    </delete>
+
 </mapper>
