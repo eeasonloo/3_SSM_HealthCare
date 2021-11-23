@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../img/asset-favico.ico">
-    <title>预约详情</title>
+    <title>Appointment Page</title>
+
     <link rel="stylesheet" href="../css/page-health-orderDetail.css" />
     <script src="../plugins/vue/vue.js"></script>
     <script src="../plugins/vue/axios-0.18.0.js"></script>
@@ -22,7 +23,7 @@
     <!-- 页面头部 -->
     <div class="top-header">
         <span class="f-left"><i class="icon-back" onclick="history.go(-1)"></i></span>
-        <span class="center">传智健康</span>
+        <span class="center">HealthcareSCU_Appointment</span>
         <span class="f-right"><i class="icon-more"></i></span>
     </div>
     <!-- 页面内容 -->
@@ -35,7 +36,7 @@
                 <h4 class="tit">{{setmeal.name}}</h4>
                 <p class="subtit">{{setmeal.remark}}</p>
                 <p class="keywords">
-                    <span>{{setmeal.sex == '0' ? '性别不限' : setmeal.sex == '1' ? '男':'女'}}</span>
+                    <span>{{setmeal.sex == '0' ? 'Both Sex' : setmeal.sex == '1' ? 'Male':'Female'}}</span>
                     <span>{{setmeal.age}}</span>
                 </p>
             </div>
@@ -50,13 +51,13 @@
         <div class="table-listbox">
             <div class="box-title">
                 <i class="icon-zhen"><span class="path1"></span><span class="path2"></span></i>
-                <span>套餐详情</span>
+                <span>Setmeal Details</span>
             </div>
             <div class="box-table">
                 <div class="table-title">
-                    <div class="tit-item flex2">项目名称</div>
-                    <div class="tit-item  flex3">项目内容</div>
-                    <div class="tit-item  flex3">项目解读</div>
+                    <div class="tit-item flex2">Checkgroup Name</div>
+                    <div class="tit-item  flex3">Checkgroup Content</div>
+                    <div class="tit-item  flex3">Checkgroup Descriptions</div>
                 </div>
                 <div class="table-content">
                     <ul class="table-list">
@@ -72,7 +73,7 @@
                     </ul>
                 </div>
                 <div class="box-button">
-                    <a @click="toOrderInfo()" class="order-btn">立即预约</a>
+                    <a @click="toOrderInfo()" class="order-btn">Book Now!</a>
                 </div>
             </div>
         </div>
@@ -94,7 +95,7 @@
             axios.post("/setmeal/findById.do?id=" + id).then((response) => {
                 if(response.data.flag){
                     this.setmeal = response.data.data;
-                    this.imgUrl = 'http://pqjroc654.bkt.clouddn.com/' + this.setmeal.img;
+                    this.imgUrl = '../temp/' + this.setmeal.img;
                 }
             });
         }
