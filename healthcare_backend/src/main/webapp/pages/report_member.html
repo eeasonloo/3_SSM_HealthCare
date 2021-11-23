@@ -4,9 +4,9 @@
         <!-- 页面meta -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>传智健康</title>
-        <meta name="description" content="传智健康">
-        <meta name="keywords" content="传智健康">
+        <title>SCU E-Healthcar</title>
+        <meta name="description" content="SCU E-Healthcare">
+        <meta name="keywords" content="SCU E-Healthcare">
         <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
         <!-- 引入样式 -->
         <link rel="stylesheet" href="../css/style.css">
@@ -15,11 +15,11 @@
     <body class="hold-transition">
         <div id="app">
             <div class="content-header">
-                <h1>统计分析<small>会员数量</small></h1>
+                <h1>Statistical analysis<small>Member Count</small></h1>
                 <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>统计分析</el-breadcrumb-item>
-                    <el-breadcrumb-item>会员数量</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
+                    <el-breadcrumb-item>Statistical analysis</el-breadcrumb-item>
+                    <el-breadcrumb-item>Member Count</el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
             <div class="app-container">
@@ -44,11 +44,11 @@
             myChart1.setOption(
                                 {
                                     title: {
-                                        text: '会员数量'
+                                        text: 'Member Count'
                                     },
                                     tooltip: {},
                                     legend: {
-                                        data:['会员数量']
+                                        data:['Member Count']
                                     },
                                     xAxis: {
                                         data: res.data.data.months
@@ -57,7 +57,7 @@
                                         type:'value'
                                     },
                                     series: [{
-                                        name: '会员数量',
+                                        name: 'Member Count',
                                         type: 'line',
                                         data: res.data.data.memberCount
                                     }]

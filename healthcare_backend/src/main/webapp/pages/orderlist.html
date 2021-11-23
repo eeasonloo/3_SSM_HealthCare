@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- 页面meta -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SCU E-Healthcare</title>
+        <meta name="description" content="SCU E-Healthcare">
+        <meta name="keywords" content="SCU E-Healthcare">
+        <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="../plugins/elementui/index.css">
+        <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <!-- 引入组件库 -->
+        <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <script src="../js/vue.js"></script>
+        <script src="../plugins/elementui/index.js"></script>
+        <script src="../js/axios-0.18.0.js"></script>
+        <style>
+            .avatar-uploader .el-upload {
+                border: 1px dashed #d9d9d9;
+                border-radius: 6px;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            }
+            .avatar-uploader .el-upload:hover {
+                border-color: #409EFF;
+            }
+            .avatar-uploader-icon {
+                font-size: 28px;
+                color: #8c939d;
+                width: 178px;
+                height: 178px;
+                line-height: 178px;
+                text-align: center;
+            }
+            .avatar {
+                width: 178px;
+                height: 178px;
+                display: block;
+            }
+            .datatable {
+                position: relative;
+                box-sizing: border-box;
+                -webkit-box-flex: 1;
+                width: 100%;
+                max-width: 100%;
+                font-size: 14px;
+                color: rgb(96, 98, 102);
+                overflow: hidden;
+                flex: 1 1 0%;
+            }
+            .datatable td, .datatable th {
+                padding: 12px 0;
+                min-width: 0;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+                position: relative;
+                text-align: left;
+            }
+        </style>
+    </head>
+    <body class="hold-transition">
+        <div id="app">
+            <div class="content-header">
+                <h1>Appointment Management<small>Appointment List</small></h1>
+                <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
+                    <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
+                    <el-breadcrumb-item>Appointment Management</el-breadcrumb-item>
+                    <el-breadcrumb-item>Appointment List</el-breadcrumb-item>
+                </el-breadcrumb>
+            </div>
+            <div class="app-container">
+                <div class="box">
+                    <div class="filter-container">
+                        <el-input placeholder="MemberName" v-model="pagination.queryString" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"></el-input>
+                        <el-button @click="findPage()" class="dalfBut">Search</el-button>
+                    </div>
+                    <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
+                        <el-table-column type="index" align="center" label="No."></el-table-column>
+                        <el-table-column prop="memberName" label="Member Name" align="center"></el-table-column>
+                        <el-table-column prop="memberEmail" label="Member Email" align="center"></el-table-column>
+                        <el-table-column prop="setmealName" label="Setmeal Name" align="center"></el-table-column>
+                        <el-table-column prop="orderDate" label="Order Date" align="center"></el-table-column>
+                        <el-table-column prop="orderType" label="Order Type" align="center"></el-table-column>
+                        <el-table-column prop="orderStatus" label="Order Status" align="center"></el-table-column>
+
+                        <el-table-column label="Operations" align="center">
+                            <template slot-scope="scope">
+                                    <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">Edit</el-button>
+                                <el-button size="mini" type="danger" @click="handleDelete(scope.row)">Delete</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <div class="pagination-container">
+                        <el-pagination
+                            class="pagiantion"
+                            @current-change="handleCurrentChange"
+                            :current-page="pagination.currentPage"
+                            :page-size="pagination.pageSize"
+                            layout="total, prev, pager, next, jumper"
+                            :total="pagination.total">
+                        </el-pagination>
+                    </div>
+
+                    <!-- 编辑标签弹层 -->
+                    <div class="add-form">
+                        <el-dialog title="Edit New Order" :visible.sync="dialogFormVisible4Edit">
+                            <template>
+                                <el-tabs v-model="activeName" type="card">
+                                    <el-tab-pane label="Basic Info" name="first">
+                                        <el-form label-position="right" label-width="100px">
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <el-form-item label="Name">
+                                                        <el-input v-model="formData.memberName" :disabled="true"/>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <el-form-item label="Email">
+                                                        <el-input v-model="formData.memberEmail" :disabled="true"/>
+                                                    </el-form-item>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <el-form-item label="Order Date">
+                                                        <el-input v-model="formData.orderDate"/>
+                                                    </el-form-item>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <el-form-item label="Order Type">
+                                                        <el-select v-model="formData.orderType" :disabled="true">
+                                                            <el-option label="Weixin" value="Weixin"></el-option>
+                                                            <el-option label="Called In" value="CalledIn"></el-option>
+                                                        </el-select>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <el-form-item label="Order Status">
+                                                        <el-select v-model="formData.orderStatus"/>
+                                                            <el-option label="Coming Soon" value="Soon"></el-option>
+                                                            <el-option label="Attended" value="Attended"></el-option>
+                                                        </el-select>
+                                                    </el-form-item>
+                                                </el-col>
+                                            </el-row>
+                                        </el-form>
+                                    </el-tab-pane>
+                                            <el-tab-pane label="Setmeal Selection" name="second">
+                                                <div class="checkScrol">
+                                                    <table class="datatable">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Select</th>
+                                                            <th>Code</th>
+                                                            <th>Name</th>
+                                                            <th>Remark</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr v-for="c in tableData">
+                                                            <td>
+                                                                <input :id="c.id" v-model="setmealIds" type="checkbox" :value="c.id">
+                                                            </td>
+                                                            <td><label :for="c.id">{{c.code}}</label></td>
+                                                            <td><label :for="c.id">{{c.name}}</label></td>
+                                                            <td><label :for="c.id">{{c.remark}}</label></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </el-tab-pane>
+                                </el-tabs>
+                            </template>
+                            <div slot="footer" class="dialog-footer">
+                                <el-button @click="dialogFormVisible = false">Cancel</el-button>
+                                <el-button type="primary" @click="handleAdd()">Confirm</el-button>
+                            </div>
+                        </el-dialog>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        var vue = new Vue({
+            el: '#app',
+            data:{
+                autoUpload:true,//自动上传
+                imageUrl:null,//模型数据，用于上传图片完成后图片预览
+                activeName:'first',//添加/编辑窗口Tab标签名称
+                pagination: {//分页相关属性
+                    currentPage: 1,
+                    pageSize:10,
+                    total:10,
+                    queryString:null,
+                },
+                dataList: [],//列表数据
+                formData: {},//表单数据
+                tableData:[],//添加表单窗口中检查组列表数据
+                setmealIds:[],//添加表单窗口中检查组复选框对应id
+                dialogFormVisible: false,//控制添加窗口显示/隐藏
+                dialogFormVisible4Edit: false
+            },
+            created() {
+                this.findPage();
+            },
+            methods: {
+
+
+                //编辑
+                handleEdit() {
+                    this.dialogFormVisible4Edit = false;
+                    axios.post("/setmeal/edit.do?checkgroupIds="+this.checkgroupIds,this.formData).then((response)=>{
+                        if(response.data.flag){
+                            this.$message({
+                                type:'success',
+                                message: response.data.message
+                            });
+                        }else{
+                            this.$message.error(response.data.message);
+                        }
+                    }).finally(()=>{
+                        this.findPage();
+                    });
+
+                },
+                //分页查询
+                findPage() {
+                    /*var pagination_params = {
+                        currentPage: this.pagination.currentPage,
+                        pageSize:this.pagination.pageSize,
+                        queryString:this.pagination.queryString
+                    };*/
+                    axios.post("/order/findById4MoreDetail.do").then((response)=>{
+                        if(response.data.flag) {
+                            this.dataList = response.data.data;
+                        }else{
+                            this.$message.error(response.data.message);
+                        }
+                    });
+                },
+                // 重置表单
+                resetForm() {
+                    this.activeName = 'first';
+                    this.setmealIds = [];
+                    this.formData ={};
+                    this.imageUrl = null;
+                },
+
+
+
+                // 弹出编辑窗口
+                handleUpdate(row) {
+                    axios.get("/order/findByIdforEdit.do?orderId=" + row.id).then((response) => {
+                        if (response.data.flag) {
+                            this.dialogFormVisible4Edit = true;
+                            this.activeName = 'first';
+                            // Redisplay form data
+                            this.formData = response.data.data;
+                            axios.get("/setmeal/findAll.do").then((response) => {
+                                if (response.data.flag) {
+                                    // Display all setmeals list
+                                    this.tableData = response.data.data;
+                                    axios.get("/order/findSetmealIdbyOrderId.do?orderId=" + row.id).then((response) => {
+                                        if (response.data.flag) {
+                                            //Display all current order associations with setmeal
+                                            this.setmealIds = response.data.data;
+                                        } else {
+                                            //Error Message Alert : assocation not found
+                                            this.$message.error(response.data.message);
+                                        }
+                                    });
+                                } else {
+                                    // Error Message alert : Cant Redisplay all setmeal
+                                    this.$message.error(response.data.message);
+                                }
+
+                            });
+                        } else {
+                            // Fatal Error Message alert : Setmeal cant be found, contact Admin!
+                            // Close Dialog
+                            this.$message.error("Server Error = " + response.data.message + " ,Please Contact Admin");
+                            this.dialogFormVisible4Edit = false;
+                        }
+
+                    }).finally(() => {
+                        this.findPage();
+                    });
+                },
+
+                // 删除
+                handleDelete(row) {
+                    this.$confirm("Are you sure you want to delete this order ?","Warning",{type:'warning'}).then(()=> {
+
+                        //点击确定按钮执行此代码
+                        axios.get("/order/delete.do?id=" + row.id).then((response)=> {
+                            if(!response.data.flag){
+                                //删除失败
+                                this.$message.error(response.data.message);
+                            }else{
+                                //删除成功
+                                this.$message({
+                                    message: response.data.message,
+                                    type: 'success'
+                                });
+                                this.findPage();
+                            }
+                        }).catch((r)=>{
+                            if(r == 'Error: Request failed with status code 403'){
+                                //权限不足
+                                this.$message.error('无访问权限');
+                                return;
+                            }else{
+                                this.$message.error('未知错误');
+                                return;
+                            }
+                        });
+                    }).catch(()=> {
+                        //点击取消按钮执行此代码
+                        this.$message('操作已取消');
+                    });
+                }
+            }
+        })
+    </script>
+</html>

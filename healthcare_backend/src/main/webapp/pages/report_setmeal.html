@@ -4,9 +4,9 @@
         <!-- 页面meta -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>传智健康</title>
-        <meta name="description" content="传智健康">
-        <meta name="keywords" content="传智健康">
+        <title>SCU E-Healthcare</title>
+        <meta name="description" content="SCU E-Healthcare">
+        <meta name="keywords" content="SCU E-Healthcare">
         <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
         <!-- 引入样式 -->
         <link rel="stylesheet" href="../css/style.css">
@@ -15,11 +15,11 @@
     <body class="hold-transition">
         <div id="app">
             <div class="content-header">
-                <h1>统计分析<small>套餐占比</small></h1>
+                <h1>Statistical analysis<small>Setmeal Percentage</small></h1>
                 <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>统计分析</el-breadcrumb-item>
-                    <el-breadcrumb-item>套餐占比</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
+                    <el-breadcrumb-item>Statistical analysis</el-breadcrumb-item>
+                    <el-breadcrumb-item>Setmeal Percentage</el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
             <div class="app-container">
@@ -43,7 +43,7 @@
         axios.get("/report/getSetmealReport.do").then((res)=>{
             myChart1.setOption({
                                     title : {
-                                        text: '套餐预约占比',
+                                        text: 'Setmeal Appoinment Percentage',
                                         subtext: '',
                                         x:'center'
                                     },
@@ -58,7 +58,7 @@
                                     },
                                     series : [//数据系列
                                         {
-                                            name: '套餐预约占比',
+                                            name: 'Setmeal Appoinment Percentage',
                                             type: 'pie',
                                             radius : '55%',
                                             center: ['50%', '60%'],
