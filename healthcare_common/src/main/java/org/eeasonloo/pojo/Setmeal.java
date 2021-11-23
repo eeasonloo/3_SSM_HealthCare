@@ -25,6 +25,7 @@ public class Setmeal implements Serializable {
     public void setCheckGroups(List<CheckGroup> checkGroups) {
         this.checkGroups = checkGroups;
     }
+
     public Integer getId() {
         return id;
     }
